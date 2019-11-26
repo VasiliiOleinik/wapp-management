@@ -12,8 +12,8 @@
           label-width="120px"
           class="ruleForm"
         >
-          <el-form-item label="Name" prop="name">
-            <el-input type="text" v-model="ruleForm.name" autocomplete="off"></el-input>
+          <el-form-item label="Name" prop="username">
+            <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="Password" prop="pass">
             <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
@@ -89,14 +89,14 @@ export default {
       ruleForm: {
         pass: '',
         checkPass: '',
-        name: '',
+        username: '',
         email: '',
         company: '',
       },
       rules: {
         pass: [{ required: true, validator: validatePass, trigger: ['blur', 'change'] }],
         checkPass: [{ required: true, validator: validatePass2, trigger: ['blur', 'change'] }],
-        name: [{ required: true, validator: validateName, trigger: ['blur', 'change'] }],
+        username: [{ required: true, validator: validateName, trigger: ['blur', 'change'] }],
         email: [
           { required: true, message: 'Please input email address', trigger: ['blur', 'change'] },
           { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }],

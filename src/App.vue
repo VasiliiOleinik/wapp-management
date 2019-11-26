@@ -3,36 +3,32 @@
     <el-row>
       <el-col :span="3" id="nav">
         <el-card class="box-card">
-          <span class="title">Menu</span>
+          <div slot="header" class="clearfix">
+            <span class="title">Menu</span>
+          </div>
           <el-menu
             default-active="2"
             class="el-menu-vertical-demo"
             @open="handleOpen"
-            @close="handleClose">
-            <el-menu-item index="2">
-              <router-link to="/">
-                <i class="el-icon-menu"></i>
-                <span>Home</span>
-            </router-link>
+            @close="handleClose"
+            router
+          >
+            <el-menu-item index="Home" :route="{name: 'home'}">
+              <i class="el-icon-menu"></i>
+              <span>Home</span>
             </el-menu-item>
-            <el-menu-item index="3">
-              <router-link to="/about">
-                <i class="el-icon-document"></i>
-                <span>About</span>
-              </router-link>
+            <el-menu-item index="About" :route="{name: 'about'}">
+              <i class="el-icon-document"></i>
+              <span>About</span>
             </el-menu-item>
-            <el-menu-item index="4">
-              <router-link to="/register">
-                <i class="el-icon-sold-out"></i>
-                <span>Register</span>
-              </router-link>
+            <el-menu-item index="Register" :route="{name: 'register'}">
+              <i class="el-icon-sold-out"></i>
+              <span>Register</span>
             </el-menu-item>
-            <el-menu-item index="4">
-            <router-link to="/login">
+            <el-menu-item index="login" :route="{name: 'login'}">
               <i class="el-icon-shopping-bag-2"></i>
               <span>Login</span>
-            </router-link>
-          </el-menu-item>
+            </el-menu-item>
           </el-menu>
         </el-card>
       </el-col>
