@@ -2,9 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
-import Login from '../views/Auth/Login/Login.vue';
-import Register from '../views/Auth/Register/Register.vue';
-import ResetPass from '../views/Auth/ResetPass/ResetPass.vue';
+import Login from '../pages/Auth/Login/Login.vue';
+import Register from '../pages/Auth/Register/Register.vue';
+import ResetPass from '../pages/Auth/ResetPass/ResetPass.vue';
+import Dashboard from '../pages/Dashboard/Dashboard.vue';
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
     name: 'resetPass',
     component: ResetPass,
   },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard,
+  },
 ];
 
 const router = new VueRouter({
@@ -42,18 +48,17 @@ const router = new VueRouter({
   routes,
 });
 
+// router.beforeEach((to, from, next) => {
+//   // redirect to login page if not logged in and trying to access a restricted page
+//   const publicPages = ['/login', '/register', '/reset-pass'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = localStorage.getItem('user');
 
-router.beforeEach((to, from, next) => {
-  // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/login', '/register'];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
+//   if (authRequired && !loggedIn) {
+//     return next('/login');
+//   }
 
-  if (authRequired && !loggedIn) {
-    return next('/login');
-  }
-
-  return next();
-});
+//   return next();
+// });
 
 export default router;

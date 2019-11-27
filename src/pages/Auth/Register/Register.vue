@@ -11,8 +11,21 @@
           ref="ruleForm"
           label-width="120px"
           class="ruleForm"
+          aria-label="registration"
+          id="register_form"
+          method="POST"
+          action="/register"
         >
-          <el-form-item label="Name" prop="username">
+          <el-form-item label="FirstName" prop="firstName">
+            <el-input type="text" v-model="ruleForm.firstName" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="SecondName" prop="secondName">
+            <el-input type="text" v-model="ruleForm.secondName" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="Surname" prop="surname">
+            <el-input type="text" v-model="ruleForm.surname" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="Username" prop="username">
             <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="Password" prop="pass">
@@ -135,7 +148,6 @@ export default {
     },
   },
 };
-
 </script>
 <style>
   .el-select {

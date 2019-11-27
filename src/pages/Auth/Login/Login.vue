@@ -11,9 +11,14 @@
           ref="ruleForm"
           label-width="120px"
           class="demo-ruleForm"
+          aria-label="login"
+          id="login_form"
+          method="POST"
+          action="/login"
         >
-          <el-form-item label="Email" prop="email">
-            <el-input type="text" v-model="ruleForm.email" autocomplete="off"></el-input>
+          <el-input type="hidden" name="_token" :value="csrf_token"></el-input>
+          <el-form-item label="Login" prop="username">
+            <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="Password" prop="pass">
             <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
@@ -77,6 +82,7 @@ export default {
     },
   },
 };
+
 
 </script>
 <style>

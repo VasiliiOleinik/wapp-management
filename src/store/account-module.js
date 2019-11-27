@@ -11,8 +11,8 @@ const actions = {
     commit('loginRequest', { username });
 
     userService.login(username, password).then(
-      (user) => {
-        commit('loginSuccess', user);
+      (res) => {
+        commit('loginSuccess', res);
         router.push('/');
       },
       (error) => {
@@ -25,12 +25,12 @@ const actions = {
     userService.logout();
     commit('logout');
   },
-  register({ dispatch, commit }, user) {
-    commit('registerRequest', user);
+  register({ dispatch, commit }, res) {
+    commit('registerRequest', res);
 
-    userService.register(user).then(
-      (user) => {
-        commit('registerSuccess', user);
+    userService.register(res).then(
+      (people) => {
+        commit('registerSuccess', people);
         router.push('/login');
         setTimeout(() => {
           // display success message after route change completes
