@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
-// import account from './account-module';
-// import users from './users-module';
+import login from './login-store';
+import register from './register-store';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  // modules: {
-  //   account,
-  //   users,
-  // },
+const store = new Vuex.Store({
+  modules: {
+    login, register,
+  },
 });
+
+export default store;

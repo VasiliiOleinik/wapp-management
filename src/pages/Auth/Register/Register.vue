@@ -5,41 +5,41 @@
           <span class="title">Registration</span>
         </div>
         <el-form
-          :model="ruleForm"
+          :model="register"
           status-icon
           :rules="rules"
-          ref="ruleForm"
+          ref="register"
           label-width="120px"
-          class="ruleForm"
+          class="register"
           aria-label="registration"
           id="register_form"
           method="POST"
           action="/register"
         >
           <el-form-item label="FirstName" prop="firstName">
-            <el-input type="text" v-model="ruleForm.firstName" autocomplete="off"></el-input>
+            <el-input type="text" v-model="register.firstName" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="SecondName" prop="secondName">
-            <el-input type="text" v-model="ruleForm.secondName" autocomplete="off"></el-input>
+            <el-input type="text" v-model="register.secondName" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="Surname" prop="surname">
-            <el-input type="text" v-model="ruleForm.surname" autocomplete="off"></el-input>
+            <el-input type="text" v-model="register.surname" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="Username" prop="username">
-            <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
+            <el-input type="text" v-model="register.username" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="Password" prop="pass">
-            <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+            <el-input type="password" v-model="register.pass" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="Confirm" prop="checkPass">
-            <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+            <el-input type="password" v-model="register.checkPass" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="Email" prop="email">
-            <el-input type="text" v-model="ruleForm.email" autocomplete="off"></el-input>
+          <el-form-item label="Email" prop="register">
+            <el-input type="text" v-model="register.email" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="Company" prop="company">
             <el-select
-              v-model="ruleForm.company"
+              v-model="register.company"
               clearable
               placeholder=""
               >
@@ -53,10 +53,10 @@
           </el-form-item>
           <el-row>
             <el-col-6>
-              <el-button type="primary" @click="submitForm('ruleForm')">Register me!</el-button>
+              <el-button type="primary" @click="submitForm('register')">Register me!</el-button>
             </el-col-6>
             <el-col-6 class="ml-4">
-              <el-button @click="resetForm('ruleForm')">Clear</el-button>
+              <el-button @click="resetForm('register')">Clear</el-button>
             </el-col-6>
           </el-row>
         </el-form>
@@ -82,8 +82,8 @@ export default {
     const validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('Please input the password'));
-      } else if (this.ruleForm.checkPass !== '') {
-        this.$refs.ruleForm.validateField('checkPass');
+      } else if (this.register.checkPass !== '') {
+        this.$refs.register.validateField('checkPass');
       }
       callback();
       return false;
@@ -91,7 +91,7 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('Please input the password again'));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.register.pass) {
         callback(new Error('Two inputs dont match!'));
       } else {
         callback();
@@ -99,12 +99,15 @@ export default {
       return false;
     };
     return {
-      ruleForm: {
+      register: {
         pass: '',
         checkPass: '',
         username: '',
         email: '',
         company: '',
+        name: '',
+        secondName: '',
+        surname: '',
       },
       rules: {
         pass: [{ required: true, validator: validatePass, trigger: ['blur', 'change'] }],
@@ -135,16 +138,36 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          const userParams = {
+            id: Math.random() * (20000 - 10000) + 10000,
+            isRegistered: true,
+          };
+          const user = Object.assign({}, this.register, userParams);
+          this.$store.dispatch('registerUser', user);
+          console.log(user);
         } else {
           console.log('error submit!!');
-          return false;
+          const register = {
+            username: null,
+            chackPass: null,
+            email: null,
+            name: null,
+            secondName: null,
+            surname: null,
+            company: null,
+          };
+          console.log(register);
         }
         return false;
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+  },
+  computed: {
+    regUser() {
+      return this.$store.getters.regUser;
     },
   },
 };
