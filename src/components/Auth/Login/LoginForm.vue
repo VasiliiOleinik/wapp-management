@@ -24,8 +24,7 @@
       </el-form-item>
       <el-row>
         <el-col-6>
-          <el-button type="primary" @click="submitForm('accaunt')"
-          :disabled="true">Log in!</el-button>
+          <el-button type="primary" @click="submitForm('accaunt')">Log in!</el-button>
         </el-col-6>
         <el-col-6 class="ml-4">
           <router-link to="/register">
@@ -84,10 +83,12 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          const generatedID = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
           const user = {
             username: this.accaunt.username,
             pass: this.accaunt.pass,
             isLogin: !this.accaunt.isLogin,
+            id: generatedID,
           };
           this.$store.dispatch('loginUser', user);
           this.$router.push({ path: '/dashboard' });

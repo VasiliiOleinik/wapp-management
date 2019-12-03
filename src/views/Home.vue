@@ -1,17 +1,9 @@
 <template>
-  <div class="home">
-    <HelloWorld msg="This is an home page"/>
-  </div>
+  <el-col :span="12" :offset="3" class="mt-30">
+    <el-card class="box-card">
+      <div class="about">
+        <h1>This is an home page</h1>
+      </div>
+    </el-card>
+  </el-col>
 </template>
-
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
-export default {
-  name: 'home',
-  components: {
-    HelloWorld,
-  },
-};
-</script>

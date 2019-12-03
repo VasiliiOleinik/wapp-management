@@ -2,13 +2,16 @@
   <el-col :span="12" :offset="3" class="mt-30">
     <el-card class="box-card">
       <div class="about">
-       <Greeting :username="loginUser.username" />
+        <Greeting :username="loginUser.username" />
+        <UserTable />
       </div>
     </el-card>
   </el-col>
 </template>
 <script>
+import HTTP from '@/services/service';
 import Greeting from '@/components/Greeting.vue';
+import UserTable from '@/components/Dashboard/UserTable.vue';
 
 export default {
   computed: {
@@ -17,8 +20,19 @@ export default {
     },
   },
   components: {
-    Greeting,
+    Greeting, UserTable,
+  },
+  created() {
+    // const { id } = this.$store.getters.loginUser;
+    // console.log(`ID: ${id}`);
+    HTTP.get(`people/${4}`)
+      .then((response) => {
+        this.people = response.data;
+        console.log(this.people.name);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
-
 </script>

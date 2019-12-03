@@ -1,0 +1,92 @@
+
+<template>
+<el-card class="box-card">
+    <el-button @click="resetDateFilter">reset date filter</el-button>
+    <el-button @click="clearFilter">reset all filters</el-button>
+    <el-table ref="filterTable" :data="tableData" style="width: 100%">
+    <el-table-column
+        prop="date"
+        label="Date"
+        sortable
+        width="180"
+        column-key="date"
+        :filters="[
+            {text: '2016-05-01', value: '2016-05-01'},
+            {text: '2016-05-02', value: '2016-05-02'},
+            {text: '2016-05-03', value: '2016-05-03'},
+            {text: '2016-05-04', value: '2016-05-04'}]"
+        :filter-method="filterHandler"
+    ></el-table-column>
+    <el-table-column prop="name" label="Name" width="180"></el-table-column>
+    <el-table-column prop="address" label="Address" :formatter="formatter"></el-table-column>
+    <el-table-column
+        prop="tag"
+        label="Tag"
+        width="100"
+        :filters="[{ text: 'Home', value: 'Home' }, { text: 'Office', value: 'Office' }]"
+        :filter-method="filterTag"
+        filter-placement="bottom-end"
+    >
+        <template slot-scope="scope">
+        <el-tag
+            :type="scope.row.tag === 'Home' ? 'primary' : 'success'"
+            disable-transitions
+        >{{scope.row.tag}}</el-tag>
+        </template>
+    </el-table-column>
+    </el-table>
+</el-card>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      tableData: [
+        {
+          date: '2016-05-01',
+          name: 'Morty',
+          address: 'No. 189, Grove St, Los Angeles',
+          tag: 'Home',
+        },
+        {
+          date: '2016-05-02',
+          name: 'Rick',
+          address: 'No. 189, Grove St, Los Angeles',
+          tag: 'Office',
+        },
+        {
+          date: '2016-05-03',
+          name: 'BeepBeep Motherfucker',
+          address: 'No. 189, Grove St, Los Angeles',
+          tag: 'Home',
+        },
+        {
+          date: '2016-05-04',
+          name: 'Jeremy',
+          address: 'No. 189, Grove St, Los Angeles',
+          tag: 'Office',
+        },
+      ],
+    };
+  },
+  methods: {
+    resetDateFilter() {
+      this.$refs.filterTable.clearFilter('date');
+    },
+    clearFilter() {
+      this.$refs.filterTable.clearFilter();
+    },
+    formatter(row) {
+      return row.address;
+    },
+    filterTag(value, row) {
+      const { tag } = row;
+      return tag === value;
+    },
+    filterHandler(value, row, column) {
+      const { property } = column.property;
+      return row[property] === value;
+    },
+  },
+};
+</script>
