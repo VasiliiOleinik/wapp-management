@@ -1,5 +1,5 @@
 <template>
-  <el-col :span="12" :offset="3" class="mt-30">
+  <el-col :span="15" :offset="2" class="mt-30">
     <el-card class="box-card">
       <div class="about">
         <Greeting :username="loginUser.username" />

@@ -1,83 +1,57 @@
 
 <template>
-<el-card class="box-card">
-    <el-button @click="resetDateFilter">reset date filter</el-button>
-    <el-button @click="clearFilter">reset all filters</el-button>
-    <el-table ref="filterTable" :data="tableData" style="width: 100%">
+<el-card class="box-card mt-4" shadow="never">
+    <el-row>
+      <el-col :span="3">
+        <el-button @click="resetProjFilter">Reset project filter</el-button>
+      </el-col>
+    </el-row>
+    <el-table ref="filterTable" :data="tableData" style="width: 100%" show-summary>
     <el-table-column
         prop="date"
         label="Date"
         sortable
         width="180"
         column-key="date"
-        :filters="[
-            {text: '2016-05-01', value: '2016-05-01'},
-            {text: '2016-05-02', value: '2016-05-02'},
-            {text: '2016-05-03', value: '2016-05-03'},
-            {text: '2016-05-04', value: '2016-05-04'}]"
-        :filter-method="filterHandler"
     ></el-table-column>
-    <el-table-column prop="name" label="Name" width="180"></el-table-column>
-    <el-table-column prop="address" label="Address" :formatter="formatter"></el-table-column>
     <el-table-column
-        prop="tag"
-        label="Tag"
-        width="100"
-        :filters="[{ text: 'Home', value: 'Home' }, { text: 'Office', value: 'Office' }]"
-        :filter-method="filterTag"
-        filter-placement="bottom-end"
+      prop="project"
+      label="Project"
+      column-key="project"
+      width="100"
+      :filters="[{ text: 'Maller', value: 'Maller' }, { text: 'WAPP', value: 'WAPP' },
+      { text: '15-puzzle', value: '15-puzzle' }]"
+      :filter-method="filterTag"
+      filter-placement="bottom-end"
     >
-        <template slot-scope="scope">
-        <el-tag
-            :type="scope.row.tag === 'Home' ? 'primary' : 'success'"
-            disable-transitions
-        >{{scope.row.tag}}</el-tag>
-        </template>
+      <template slot-scope="scope">
+      <el-tag
+          :type="scope.row.tag === 'Maller' ? 'primary' : 'success'"
+          disable-transitions
+      >{{scope.row.tag}}</el-tag>
+      </template>
     </el-table-column>
+    <el-table-column prop="task" label="Task"></el-table-column>
+    <el-table-column prop="time" label="Time" width="180" :formatter="formatter"></el-table-column>
+
     </el-table>
 </el-card>
 </template>
 <script>
+import tableData from '@/constants/UserTableMock';
+
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: '2016-05-01',
-          name: 'Morty',
-          address: 'No. 189, Grove St, Los Angeles',
-          tag: 'Home',
-        },
-        {
-          date: '2016-05-02',
-          name: 'Rick',
-          address: 'No. 189, Grove St, Los Angeles',
-          tag: 'Office',
-        },
-        {
-          date: '2016-05-03',
-          name: 'BeepBeep Motherfucker',
-          address: 'No. 189, Grove St, Los Angeles',
-          tag: 'Home',
-        },
-        {
-          date: '2016-05-04',
-          name: 'Jeremy',
-          address: 'No. 189, Grove St, Los Angeles',
-          tag: 'Office',
-        },
-      ],
+      tableData,
     };
   },
   methods: {
-    resetDateFilter() {
-      this.$refs.filterTable.clearFilter('date');
-    },
-    clearFilter() {
-      this.$refs.filterTable.clearFilter();
+    resetProjFilter() {
+      this.$refs.filterTable.clearFilter('project');
     },
     formatter(row) {
-      return row.address;
+      return row.time;
     },
     filterTag(value, row) {
       const { tag } = row;
