@@ -5,6 +5,7 @@ import Login from '../pages/Auth/Login/Login.vue';
 import Register from '../pages/Auth/Register/Register.vue';
 import ResetPass from '../pages/Auth/ResetPass/ResetPass.vue';
 import Dashboard from '../pages/Dashboard/Dashboard.vue';
+import Personal from '../pages/Personal/Personal.vue';
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+  },
+  {
+    path: '/personal',
+    name: 'personal',
+    component: Personal,
   },
 ];
 

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <el-row>
+    <Navbar class="mb-4"/>
+    <el-row class="main-row">
       <el-col :span="3" id="nav">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -29,6 +30,10 @@
               <i class="el-icon-shopping-bag-2"></i>
               <span>Login</span>
             </el-menu-item>
+             <el-menu-item index="personal" :route="{name: 'personal'}">
+              <i class="el-icon-user"></i>
+              <span>Personal</span>
+            </el-menu-item>
           </el-menu>
         </el-card>
       </el-col>
@@ -46,8 +51,11 @@
   color: #2c3e50;
 }
 
+.el-header {
+  height: auto !important;
+}
+
 #nav {
-  padding: 30px;
 
   a {
     font-weight: bold;
@@ -70,6 +78,8 @@
 }
 </style>
 <script>
+import Navbar from '@/components/Navbar/Navbar.vue';
+
 export default {
   data() {
     return {
@@ -84,5 +94,6 @@ export default {
       console.log(key, keyPath);
     },
   },
+  components: { Navbar },
 };
 </script>
